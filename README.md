@@ -1,24 +1,11 @@
-# flow-chart
+<!--
+ * @Author: xwt
+ * @Date: 2020-09-27 10:22:04
+ * @LastEditors: xwt
+ * @LastEditTime: 2020-09-29 15:45:46
+ * @Description: Do not edit
+ * @FilePath: \flow-chart\README.md
+-->
+# 流程图功能插件
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+> 仿照'轻流'流程图开发

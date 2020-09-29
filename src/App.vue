@@ -1,28 +1,38 @@
+<!--
+ * @Author: xwt
+ * @Date: 2020-09-27 10:21:55
+ * @LastEditors: xwt
+ * @LastEditTime: 2020-09-29 14:55:09
+ * @Description: Do not edit
+ * @FilePath: \flow-chart\src\App.vue
+-->
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <flowChart />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import flowChart from '@/components/flowChart'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    flowChart,
   }
 }
 </script>
 
 <style>
+body, html {
+  margin: 0;
+  height: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
 }
 </style>

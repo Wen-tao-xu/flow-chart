@@ -2,66 +2,61 @@
  * @Author: xwt
  * @Date: 2020-09-27 11:34:12
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-29 14:17:13
+ * @LastEditTime: 2020-09-30 16:17:37
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\fcDealNode.vue
 -->
 <template>
-  <div class="deal-node-wrap">
-    <div class="deal-node">
-      <div class="node-content audit-background">
-        <p>普通节点</p>
-        <i class="del-btn">X</i>
-      </div>
-      <div class="line-in-middle">
-        <div class="line"></div>
-        <fcAddBar />
-      </div>
+  <div class="deal-node fc-row">
+    <div class="node-content audit-background">
+      <p>普通节点</p>
+      <i class="del-btn">X</i>
     </div>
-    <div class="fc-row" v-if="data && data.children && data.children.length">
-      <fcItem
-        v-for="(item, index) in data.children"
-        :key="index"
-        :data="item"
-      />
+    <div class="line-in-middle">
+      <div class="line"></div>
+      <fcAddBar @onHandleMenu="onHandleMenu" />
     </div>
   </div>
 </template>
 
 <script>
 import fcAddBar from './fcAddBar'
-import fcItem from './fcItem'
 export default {
   name: 'fcDealnode',
   components: {
     fcAddBar,
-    fcItem,
-    // fcBranch: () => import('./fcBranch'),
   },
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => {
+        return {}
+      },
+      required: true
     },
-  },
-  computed: {
-    children() {
-      return this.data.children || []
+    index: {
+      type: Number,
+      default: 0,
+      required: true
+    },
+    parentData: {
+      type: Array,
+      default: () => [],
+      required: true
     },
   },
   data() {
     return {}
   },
   methods: {
-    getComponent(type) {
-      switch (type) {
-        case 'condition':
-          return 'fcBranch'
-        case 'dealNode':
-          return 'fc-dealnode'
+    onHandleMenu(type) {
+      let obj = { type }
+      if (type === 'condition') {
+        obj.children = [{type}, {type}]
       }
+      this.parentData.splice(this.index + 1, 0, obj)
     },
-  }
+  },
 }
 </script>
 

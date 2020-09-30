@@ -2,43 +2,42 @@
  * @Author: xwt
  * @Date: 2020-09-27 10:24:24
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-29 15:41:59
+ * @LastEditTime: 2020-09-30 16:19:07
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\index.vue
 -->
 <template>
-  <div class="fc-wrapper">
-    <div class="fc-container">
-      <fcItem v-for="(item, index) in flowChart" :key="index" :data="item" />
+  <div class="fc-wrap">
+    <div class="fc-container fc-row">
+      <component
+        :is="getComponent(item.type)"
+        v-for="(item, index) in flowChart"
+        :key="index"
+        :data="item"
+        :index="index"
+        :parentData="flowChart"
+      ></component>
       <div class="end-node">结束</div>
     </div>
   </div>
 </template>
 
 <script>
-import fcItem from './fcItem'
+import { getComponent } from './utils'
 export default {
   name: 'flowChart',
   components: {
-    fcItem,
+    fcDealNode: () => import('./fcDealNode'),
+    fcBranch: () => import('./fcBranch'),
   },
   data() {
     return {
-      flowChart: [
-        {
-          type: 'dealNode'
-        }
-      ],
+      flowChart: [{ type: 'dealNode' }],
     }
   },
   methods: {
     getComponent(type) {
-      switch (type) {
-        case 'condition':
-          return 'fcBranch'
-        case 'dealNode':
-          return 'fcDealNode'
-      }
+      return getComponent(type)
     },
   },
 }
@@ -46,20 +45,20 @@ export default {
 
 <style scoped>
 @import url('./style/index.css');
-.fc-wrapper, .fc-container {
-  display: flex;
-  height: 100%;
+.fc-wrap {
   width: 100%;
-  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #f5f5f7;
+  position: relative;
 }
 .fc-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f5f5f7;
   padding: 50px 20px;
+  box-sizing: border-box;
   /* transform: scale(0.5); */
+  transform-origin: 0 0 0;
+  min-width: min-content;
 }
 .end-node {
   display: inline-flex;

@@ -2,7 +2,7 @@
  * @Author: xwt
  * @Date: 2020-09-27 11:35:13
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-29 14:24:11
+ * @LastEditTime: 2020-09-30 16:16:57
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\fcBranch.vue
 -->
@@ -10,17 +10,17 @@
   <div class="branch fc-row">
     <div class="branch-box">
       <div class="add-branch"  @click="addCondition">+</div>
-      <div class="col-box" v-for="(item, index) in children" :key="index">
+      <div class="col-box" v-for="(item, i) in children" :key="i">
         <fcConditionNode
           :data="item"
-          :isRowBeginNode="index == 0"
-          :isRowEndNode="index == children.length - 1"
+          :isRowBeginNode="i == 0"
+          :isRowEndNode="i == children.length - 1"
         />
       </div>
     </div>
     <div class="line-in-middle">
       <div class="line"></div>
-      <fcAddBar />
+      <fcAddBar @onHandleMenu="onHandleMenu" />
     </div>
   </div>
 </template>
@@ -40,20 +40,35 @@ export default {
       default: () => {
         return {}
       },
+      required: true
     },
+    parentData: {
+      type: Array,
+      default: () => [],
+      required: true
+    },
+    index: {
+      type: Number,
+      default: 0,
+      required: true
+    }
   },
   computed: {
     children() {
-      return this.data.children || [{}, {}]
+      return this.data.children
     }
-  },
-  data() {
-    return {}
   },
   methods: {
     addCondition() {
       this.data.children.push({})
     },
+    onHandleMenu(type) {
+      let obj = {type}
+      if(type === 'condition') {
+        obj.children = [{type}, {type}]
+      }
+      this.parentData.splice(this.index+1, 0, obj)
+    }
   },
 }
 </script>

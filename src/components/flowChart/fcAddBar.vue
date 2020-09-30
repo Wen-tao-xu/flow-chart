@@ -2,16 +2,16 @@
  * @Author: xwt
  * @Date: 2020-09-27 17:38:09
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-28 14:47:14
+ * @LastEditTime: 2020-09-30 15:09:52
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\fcAddBar.vue
 -->
 <template>
   <div class="add-bar-wrap">
-    <button class="add-bar" @click="onAddBtn">+</button>
+    <button class="add-bar" @click="showToolList">+</button>
     <div class="tool-tip" v-show="isShow" @click="onHandleMenu">
-      <div class="tool-item" data-type="0">添加节点</div>
-      <div class="tool-item" data-type="1">添加分支</div>
+      <div class="tool-item" data-type="dealNode">添加节点</div>
+      <div class="tool-item" data-type="condition">添加分支</div>
     </div>
   </div>
 </template>
@@ -21,17 +21,18 @@ export default {
   name: 'fcAddBtn',
   data() {
     return {
-      isShow: false
+      isShow: false,
     }
   },
   methods: {
-    onAddBtn() {
+    showToolList() {
       this.isShow = !this.isShow
-      this.$emit('onAddBtn')
     },
     onHandleMenu(e) {
       let handleType = e.target.dataset.type
-      this.$emit('onHandleMenu', handleType)
+      if (handleType) {
+        this.$emit('onHandleMenu', handleType)
+      }
       this.isShow = !this.isShow
     },
   },
@@ -80,12 +81,13 @@ export default {
   background-color: #fff;
   background-clip: padding-box;
   border-radius: 4px;
-  box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
 .tool-item {
   padding: 7px 10px 7px 15px;
   cursor: pointer;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 .tool-item:hover {
   background: #ebebf0;

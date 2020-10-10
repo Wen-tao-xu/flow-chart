@@ -2,7 +2,7 @@
  * @Author: xwt
  * @Date: 2020-09-27 10:24:24
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-30 16:19:07
+ * @LastEditTime: 2020-10-10 11:01:11
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\index.vue
 -->
@@ -16,6 +16,7 @@
         :data="item"
         :index="index"
         :parentData="flowChart"
+        :showDeleteBtn="index !== 0"
       ></component>
       <div class="end-node">结束</div>
     </div>

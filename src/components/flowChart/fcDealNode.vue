@@ -2,7 +2,7 @@
  * @Author: xwt
  * @Date: 2020-09-27 11:34:12
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-30 16:17:37
+ * @LastEditTime: 2020-10-10 11:00:55
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\fcDealNode.vue
 -->
@@ -10,7 +10,7 @@
   <div class="deal-node fc-row">
     <div class="node-content audit-background">
       <p>普通节点</p>
-      <i class="del-btn">X</i>
+      <i class="del-btn" @click="onDeleteNode" v-if="showDeleteBtn">X</i>
     </div>
     <div class="line-in-middle">
       <div class="line"></div>
@@ -32,27 +32,34 @@ export default {
       default: () => {
         return {}
       },
-      required: true
+      required: true,
     },
     index: {
       type: Number,
       default: 0,
-      required: true
+      required: true,
     },
     parentData: {
       type: Array,
       default: () => [],
-      required: true
+      required: true,
+    },
+    showDeleteBtn: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
     return {}
   },
   methods: {
+    onDeleteNode() {
+      this.parentData.splice(this.index, 1)
+    },
     onHandleMenu(type) {
       let obj = { type }
       if (type === 'condition') {
-        obj.children = [{type}, {type}]
+        obj.children = [{ type }, { type }]
       }
       this.parentData.splice(this.index + 1, 0, obj)
     },

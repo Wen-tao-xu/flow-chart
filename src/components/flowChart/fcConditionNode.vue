@@ -2,7 +2,7 @@
  * @Author: xwt
  * @Date: 2020-09-27 16:20:32
  * @LastEditors: xwt
- * @LastEditTime: 2020-09-30 16:17:14
+ * @LastEditTime: 2020-10-10 11:01:03
  * @Description: Do not edit
  * @FilePath: \flow-chart\src\components\flowChart\fcConditionNode.vue
 -->
@@ -12,7 +12,10 @@
     <div class="top-right-cover-line" v-if="isRowEndNode"></div>
     <div class="condition-node-box">
       <div class="line"></div>
-      <div class="node-content">分支节点</div>
+      <div class="node-content">
+        <p>分支节点</p>
+        <i class="del-btn" @click="onDeleteNode">X</i>
+      </div>
       <fcAddBar @onHandleMenu="onHandleMenu" />
     </div>
     <div class="fc-row" v-if="data.children && data.children.length">
@@ -56,14 +59,38 @@ export default {
       default: () => {},
       required: true,
     },
+    parentData: {
+      type: Array,
+      default: () => [],
+    },
+    parentIndex: {
+      type: Number,
+      default: 0,
+    },
+    children: {
+      type: Array,
+      default: () => [],
+    },
+    childrenIndex: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
   },
   methods: {
+    onDeleteNode() {
+      if (this.children.length > 2) {
+        this.children.splice(this.childrenIndex, 1)
+      } else {
+        this.parentData.splice(this.parentIndex, 1)
+      }
+    },
     onHandleMenu(type) {
       let obj = { type }
       if (type === 'condition') {
-        obj.children = [{type}, {type}]
+        obj.children = [{ type }, { type }]
       }
-      if(!this.data.children) {
+      if (!this.data.children) {
         this.$set(this.data, 'children', [])
       }
       this.data.children.unshift(obj)

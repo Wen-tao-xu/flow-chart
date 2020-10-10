@@ -79,3 +79,13 @@
 .node-content:hover .del-btn {
   display: block;
 }
+
+@keyframes change-background {
+  0% {
+    background-color: #bfd9ff;
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
